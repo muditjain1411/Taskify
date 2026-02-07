@@ -16,6 +16,7 @@ function generateTaskId(category) {
     return id
 
 }
+
 function loadTasks() {
     let data;
     if (fs.existsSync(TASK_FILE_PATH)) {
@@ -45,3 +46,16 @@ function saveTasks(tasks, category = 'general') {
     fs.writeFileSync(TASK_FILE_PATH, JSON.stringify(data))
     console.log(`Task added with ID: ${id}`)
 }
+
+function createCategory(category) {
+    category = category.toLowerCase()
+
+    if (data[category]) {
+        console.log(`Category ${category} already exists.\nTerminating creation of category...`)
+        return
+    }
+    data[category] = {}
+    fs.writeFileSync(TASK_FILE_PATH, JSON.stringify(data))
+    console.log(`Category ${category} created successfully.`)
+}
+
