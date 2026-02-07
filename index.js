@@ -59,3 +59,21 @@ function createCategory(category) {
     console.log(`Category ${category} created successfully.`)
 }
 
+function listTasks(category = '*') {
+    category = category.toLowerCase()
+
+    if (category === '*') {
+        for (const cat in data) {
+            console.log("=".repeat(50), cat, "=".repeat(50))
+            for (const task in data[cat]) {
+                console.log(`ID: ${task}        Task: ${data[cat][task].task}         Status: ${data[cat][task].status}`)
+            }
+        }
+    }
+    else{
+        for(const task in data[category]){
+            console.log(`ID: ${task}        Task: ${data[category][task].task}         Status: ${data[category][task].status}`)
+        }
+    }
+}
+
