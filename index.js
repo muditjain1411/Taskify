@@ -1,6 +1,9 @@
+#!/usr/bin/env node
 import fs from 'fs'
 import path from 'path'
 import os from 'os'
+
+
 const TASK_FILE_PATH = path.join(os.homedir(), '.taskify-data.json')
 const data = loadTasks()
 
