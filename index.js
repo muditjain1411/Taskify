@@ -140,3 +140,133 @@ function help() {
         taskify help ----> help menu
         `)
 }
+
+function main() {
+    const args = process.argv.slice(2);
+    console.log(args);
+
+    try {
+
+        switch (args[0].toLowerCase()) {
+            case "add":
+                switch (args[1].toLowerCase()) {
+                    case "-c":
+                        if (args[2].toLowerCase()) {
+                            if (args[3].toLowerCase() == "-t") {
+                                if (args[4].toLowerCase) {
+                                    saveTasks(args[4], args[2]);
+                                }
+                                else {
+                                    console.log("Invalid Syntax! Task argument not found...");
+                                }
+                            }
+                            else {
+                                console.log("Invalid Syntax! Task not found...");
+                            }
+                        }
+                        else {
+                            console.log("Invalid Syntax! Category argument not found...");
+                        }
+                        break;
+                    case "-t":
+                        if (args[2].toLowerCase()) {
+                            saveTasks(args[2]);
+                        }
+                        else {
+                            console.log("Invalid Task! Task argument not found...");
+                        }
+                        break;
+                    default:
+                        console.log(`Invalid Syntax! Enter "taskify help" to view commands`);
+                }
+                break;
+
+            case "list":
+                try{
+                    listTasks(args[1])
+                }
+                catch{
+                    listTasks();
+                }
+                break;
+
+            case "create":
+                createCategory(args[1].toLowerCase())
+                break;
+
+            case "update":
+                if(args[2] == '-i'){
+                    if(args[3]){
+                        if(args[4] == '-t'){
+                            if(args[5]){
+                                switch(args[1].toLowerCase()){
+                                    case "task":
+                                        updateTask(args[3],args[5])
+                                        break;
+                                    case "status":
+                                        updateTaskStatus(args[3],args[5])
+                                        break;
+                                    default:
+                                        console.log(`Invalid Syntax! Enter "taskify help" to view commands`)
+                                        break;
+                                }
+                            }
+                            else{
+                            console.log("Invalid Syntax! task argument not found...")
+                            }
+                        }
+                        else{
+                        console.log(`Invalid Syntax! Enter "taskify help" to view commands`)
+                        }
+                    }
+                    else{
+                    console.log("Invalid Syntax! Task ID not found...")
+                    }
+                }
+                else{
+                console.log(`Invalid Syntax! Enter "taskify help" to view commands`)
+                }
+                break;
+
+            case "delete":
+                switch(args[1]){
+                    case "task":
+                        if(args[2] == "-i"){
+                            if(args[3]){
+                                deleteTask(args[3])
+                            }
+                            else{
+                                console.log("Invalid Syntax! Task Id not found...")
+                            }
+                        }
+                        else{
+                            console.log(`Invalid Syntax! Enter "taskify help" to view commands`)
+                        }
+                        break;
+                    case "category":
+                        if(args[2]){
+                            deleteCat(args[2]);
+                        }
+                        else{
+                            console.log("Invalid Synntax! Category not found...")
+                        }
+                        break;
+                    default:
+                        console.log(`Invalid Syntax! Enter "taskify help" to view commands`)
+                        break;
+                    }
+
+            case "help":
+                help()
+                break;
+
+            default:
+                console.log(`Invalid Syntax! Enter "taskify help" to view commands`)
+                break;
+        }
+    }
+    catch (error) {
+        console.log(`Invalid Syntax! Enter "taskify help" to view commands`)
+    }
+}
+main()
