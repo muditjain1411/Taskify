@@ -99,3 +99,26 @@ function updateTaskStatus(id, status) {
     }
     console.log("Task Id not found!\nTerminating update...")
 }
+
+function deleteTask(id) {
+    const category = id.split("@")[0]
+        if (data[category][id]) {
+            delete data[category][id]
+            fs.writeFileSync(TASK_FILE_PATH,JSON.stringify(data))
+            console.log(`Deleting task with Task ID ${id}`)
+            return
+        }
+        console.log(`Task ID not found!\nTerminating deletion of task...`)
+        return
+}
+
+function deleteCat(category) {
+        if (data[category]) {
+            delete data[category]
+            fs.writeFileSync(TASK_FILE_PATH, JSON.stringify(data))
+            console.log(`Deleting category ${category}`)
+            return
+        }
+        console.log(`Category not found!\nTerminating deletion of Category...`)
+        return
+}
