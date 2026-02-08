@@ -122,3 +122,18 @@ function deleteCat(category) {
         console.log(`Category not found!\nTerminating deletion of Category...`)
         return
 }
+
+function help(){
+    console.log("\n","-".repeat(45),"TASKIFY COMMANDS","-".repeat(45))
+    console.log(`
+        taskify create <category-name> ----> create new category
+        taskify list <category-name> ----> list all the task from that category
+        taskify list ----> list all the task
+        taskify add -c <category-name> ----> add new task in that category
+        taskify update task -i <task-id> -t <task> ----> update task
+        taskify update status -i <task-id> -t <task> ----> update task status
+        taskify delete task -i <task-id> ----> delete a task
+        taskify delete category <category-name> ----> delete whole category
+        `)
+    console.log("-".repeat(100))
+}
