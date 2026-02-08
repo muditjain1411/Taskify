@@ -77,3 +77,25 @@ function listTasks(category = '*') {
     }
 }
 
+function updateTask(id, task) {
+    const category = id.split('@')[0]
+    if (data[category[id]]) {
+        data[category][id]["task"] = task
+        fs.writeFileSync(TASK_FILE_PATH, JSON.stringify(data))
+        console.log(`Task successfuly updated for Task Id ${id}`)
+        return
+    }
+    console.log("Task Id not found!\nTerminating update...")
+    return
+}
+
+function updateTaskStatus(id, status) {
+    const category = id.split('@')[0]
+    if (data[category][id]) {
+        data[category][id]["status"] = status
+        fs.writeFileSync(TASK_FILE_PATH, JSON.stringify(data))
+        console.log(`Task status successfuly updated for Task Id ${id}`)
+        return
+    }
+    console.log("Task Id not found!\nTerminating update...")
+}
