@@ -70,8 +70,8 @@ function listTasks(category = '*') {
             }
         }
     }
-    else{
-        for(const task in data[category]){
+    else {
+        for (const task in data[category]) {
             console.log(`ID: ${task}        Task: ${data[category][task].task}         Status: ${data[category][task].status}`)
         }
     }
@@ -79,13 +79,15 @@ function listTasks(category = '*') {
 
 function updateTask(id, task) {
     const category = id.split('@')[0]
-    if (data[category[id]]) {
+    if (data[category][id]) {
         data[category][id]["task"] = task
         fs.writeFileSync(TASK_FILE_PATH, JSON.stringify(data))
         console.log(`Task successfuly updated for Task Id ${id}`)
         return
     }
+    else{
     console.log("Task Id not found!\nTerminating update...")
+    }
     return
 }
 
@@ -102,38 +104,39 @@ function updateTaskStatus(id, status) {
 
 function deleteTask(id) {
     const category = id.split("@")[0]
-        if (data[category][id]) {
-            delete data[category][id]
-            fs.writeFileSync(TASK_FILE_PATH,JSON.stringify(data))
-            console.log(`Deleting task with Task ID ${id}`)
-            return
-        }
-        console.log(`Task ID not found!\nTerminating deletion of task...`)
+    if (data[category][id]) {
+        delete data[category][id]
+        fs.writeFileSync(TASK_FILE_PATH, JSON.stringify(data))
+        console.log(`Deleting task with Task ID ${id}`)
         return
+    }
+    console.log(`Task ID not found!\nTerminating deletion of task...`)
+    return
 }
 
 function deleteCat(category) {
-        if (data[category]) {
-            delete data[category]
-            fs.writeFileSync(TASK_FILE_PATH, JSON.stringify(data))
-            console.log(`Deleting category ${category}`)
-            return
-        }
-        console.log(`Category not found!\nTerminating deletion of Category...`)
+    if (data[category]) {
+        delete data[category]
+        fs.writeFileSync(TASK_FILE_PATH, JSON.stringify(data))
+        console.log(`Deleting category ${category}`)
         return
+    }
+    console.log(`Category not found!\nTerminating deletion of Category...`)
+    return
 }
 
-function help(){
-    console.log("\n","-".repeat(45),"TASKIFY COMMANDS","-".repeat(45))
+function help() {
+    console.log("\n", "-".repeat(45), "TASKIFY COMMANDS", "-".repeat(45))
     console.log(`
         taskify create <category-name> ----> create new category
         taskify list <category-name> ----> list all the task from that category
         taskify list ----> list all the task
-        taskify add -c <category-name> ----> add new task in that category
+        taskify add -c <category-name> -t <task> ----> add new task in that category
+        taskify add -t task ----> add new task in the default general category
         taskify update task -i <task-id> -t <task> ----> update task
         taskify update status -i <task-id> -t <task> ----> update task status
         taskify delete task -i <task-id> ----> delete a task
         taskify delete category <category-name> ----> delete whole category
+        taskify help ----> help menu
         `)
-    console.log("-".repeat(100))
 }
